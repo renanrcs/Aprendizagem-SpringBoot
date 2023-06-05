@@ -1,6 +1,8 @@
 package io.github.renanrcs.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.renanrcs.api.entities.converter.OrderStatusConverter;
+import io.github.renanrcs.api.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +29,9 @@ public class Order implements Serializable {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
+
+    @Convert(converter = OrderStatusConverter.class)
+    private OrderStatus orderStatus;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
